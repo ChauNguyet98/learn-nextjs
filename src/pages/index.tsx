@@ -1,9 +1,23 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Image from 'next/image';
+import { Inter } from 'next/font/google';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
+  const router = useRouter();
+
+  const gotoPostDetail = () => {
+    router.push({
+      pathname: '/posts/[postId]',
+      query: {
+        postId: '123',
+        ref: 'social',
+      },
+    });
+  };
+
   return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
@@ -42,6 +56,17 @@ export default function Home() {
           height={37}
           priority
         />
+      </div>
+
+      <div className="flex flex-col items-center justify-center">
+        {/* <div>
+          <Link href={'/about'}>
+            Go to About
+          </Link>
+        </div> */}
+        <div>
+          <button onClick={gotoPostDetail}>Go to post detail page</button>
+        </div>
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
@@ -113,6 +138,12 @@ export default function Home() {
           </p>
         </a>
       </div>
+
+      <div className="flex flex-col items-center justify-center mt-[2000px]">
+        <div>
+          <Link href={'/about'}>Go to About</Link>
+        </div>
+      </div>
     </main>
-  )
+  );
 }
